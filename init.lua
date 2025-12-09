@@ -672,10 +672,10 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- ts_ls = {},
+        ts_ls = {},
         pylsp = {
+          cmd = { vim.fn.expand '$LOCALAPPDATA/nvim-venv/Scripts/pylsp.exe' },
           settings = {
-            cmd = { vim.fn.expand '$LOCALAPPDATA/nvim-venv/Scripts/pylsp.exe' },
             pylsp = {
               plugins = {
                 ruff = { enabled = true },
@@ -756,6 +756,25 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      vim.lsp.config.pylsp = {
+        cmd = { vim.fn.expand '$LOCALAPPDATA/nvim-venv/Scripts/pylsp.exe' },
+        capabilities = capabilities,
+        settings = {
+          pylsp = {
+            plugins = {
+              ruff = { enabled = true },
+              pycodestyle = { enabled = false },
+              mccabe = { enabled = false },
+              pyflakes = { enabled = false },
+              flake8 = { enabled = false },
+              pylint = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+            },
+          },
         },
       }
     end,
@@ -986,6 +1005,8 @@ require('lazy').setup({
         'eex',
         'python',
         'javascript',
+        'typescript',
+        'tsx',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
